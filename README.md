@@ -157,8 +157,8 @@ Post.auto_upgrade!
 
 * C(create)
   > create는 두 가지 방법이 있음.
-  > Post.create로 클래스 메소드를 활용
-  > post = Post.new로 하나의 인스턴스를 만들어서 활용
+  > 1) Post.create로 클래스 메소드를 활용
+  > 2) post = Post.new로 하나의 인스턴스를 만들어서 활용
 
   ```ruby
     2.4.0 :003 > Post.create(title: 111, body: 111)
