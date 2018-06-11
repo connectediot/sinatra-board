@@ -106,6 +106,17 @@ end
    end
    ```
 
+* params를 확인하기 위해서 코드를 추가하자.
+
+```ruby
+    before do
+    p "*****************"
+    p params
+    p request.path_info
+    p request.fullpath
+    p request.url
+    p "*****************"
+```
 
 
 #### ORM : object relational mapper
