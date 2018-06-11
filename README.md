@@ -1,6 +1,6 @@
 ### Sinatra 정리
 
-##### 준비사항
+#### 준비사항
 
 필수 gem 설치
 
@@ -8,7 +8,7 @@
 
 `$ gem install sinatra-reloader`
 
-##### 시작 페이지 만들기(routing 설정 및 대응되는 view 설정)
+#### 시작 페이지 만들기(routing 설정 및 대응되는 view 설정)
 
 ```ruby
 # app.rb 
@@ -26,14 +26,14 @@ end
 
 
 
-##### 폴더 구조 
+#### 폴더 구조 
 
 * app.rb
 * views/
   * .erb
   * layout.erb
 
-##### layout.erb
+#### layout.erb
 
 ```erb
 <html>
@@ -58,7 +58,7 @@ hello {puts "takhee"}
 
 
 
-##### erb에서 루비 코드 활용하기
+#### erb에서 루비 코드 활용하기
 
 ```ruby
 # app.rb
@@ -71,10 +71,11 @@ end
 ```erb
 <!-- lunch.erb -->
 <%= @lunch %>
+<%# "주석" %>
 
 ```
 
-##### params 
+#### params 
 
 1. variable routing
 
@@ -107,13 +108,13 @@ end
 
 
 
-##### ORM : object relational mapper
+#### ORM : object relational mapper
 
 객체지향언어(ruby)와 데이터베이스(sqlite)를 연결하는 것을 도와주는 도구
 
 [Datamapper]('http://recipes.sinatrarb.com/p/models/data_mapper')
 
-##### 사전준비사항
+#### 사전준비사항
 
 `$ gem install datamapper`
 
@@ -123,9 +124,12 @@ end
 # app.rb
 # c9에서 json 라이브러리 충돌로 인한 코드
 gem 'json', '~>1.6'
+
 require 'datamapper'
+
 #blog.db 세팅
 DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/blog.db")
+
 # Post 객체(Obeject) 생성
 class Post
   include DataMapper::Resource
@@ -143,13 +147,18 @@ DataMapper.finalize
 Post.auto_upgrade!
 ```
 
-##### 데이터 조작
+#### 데이터 조작
 
 * 기본
 
-  `Post.all`
+  ```ruby
+    Post.all
+  ```
 
 * C(create)
+  > create는 두 가지 방법이 있음.
+  > Post.create로 클래스 메소드를 활용
+  > post = Post.new로 하나의 인스턴스를 만들어서 활용
 
   ```ruby
     2.4.0 :003 > Post.create(title: 111, body: 111)
@@ -158,6 +167,7 @@ Post.auto_upgrade!
   ```
 
 * R(Read)
+  > Read는 특정한 하나를 가져오는 것(id - primary key)
 
   ```ruby
     2.4.0 :004 > Post.get(1)
@@ -166,6 +176,8 @@ Post.auto_upgrade!
   ```
 
 * U(update)
+  > update 는 특정한 하나를 가져오고(id - primary key)
+  > 이를 수정. 즉, create와 같이 2가지 방법이 있음.
 
   ```ruby
   # 첫번째
@@ -182,6 +194,7 @@ Post.auto_upgrade!
   ```
 
 * D(Destroy)
+  > destroy 는 특정한 하나를 가져오고(id - primary key) 삭제
 
   ```ruby
     2.4.0 :007 > Post.get(1).destroy
@@ -192,7 +205,7 @@ Post.auto_upgrade!
 
 
 
-##### CRUD 만들기
+#### CRUD 만들기
 
 Create : action이 두개 필요
 
