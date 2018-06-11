@@ -1,3 +1,8 @@
-<%= @title %>
-<%= @body %>
-가 작성되었습니다.
+<div class="container">
+    <p>아래의 내용으로 작성되었습니다.</p>
+    <hr>
+    <p>제목: <%= @title %></p>
+    <p>내용: <%= @body %></p>
+    <hr>
+    <a href="/posts"> 글 목록 보기</a>
+</div>
