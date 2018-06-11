@@ -152,26 +152,28 @@ Post.auto_upgrade!
 * C(create)
 
   ```ruby
-  # 첫번째 방법
-  Post.create(title: "test", body: "test")
-  # 두번째 방법
-  p = Post.new
-  p.title = "test"
-  p.body = "test"
-  p.save # db에 작성
+    2.4.0 :003 > Post.create(title: 111, body: 111)
+    ~ (0.016058) INSERT INTO "posts" ("title", "body", "created_at") VALUES ('111', '111', '2018-06-11T07:05:41+00:00')
+    => #<Post @id=1 @title="111" @body="111" @created_at=#<DateTime: 2018-06-11T07:05:41+00:00 ((2458281j,25541s,146636304n),+0s,2299161j)>> 
   ```
 
 * R(Read)
 
   ```ruby
-  Post.get(1) # get(id)
+    2.4.0 :004 > Post.get(1)
+     ~ (0.000316) SELECT "id", "title", "created_at" FROM "posts" WHERE "id" = 1 LIMIT 1
+     => #<Post @id=1 @title="111" @body=<not loaded> @created_at=#<DateTime: 2018-06-11T07:05:41+00:00 ((2458281j,25541s,0n),+0s,2299161j)>> 
   ```
 
 * U(update)
 
   ```ruby
   # 첫번째
-  Post.get(1).update(title: "test", body: "test")
+  2.4.0 :006 > Post.get(1).update(title: "222수정", body: "222수정")                               
+  ~ (0.000222) SELECT "id", "title", "created_at" FROM "posts" WHERE "id" = 1 LIMIT 1
+  ~ (0.000054) SELECT "id", "body" FROM "posts" WHERE "id" = 1 ORDER BY "id"
+  ~ (0.015631) UPDATE "posts" SET "title" = '222수정', "body" = '222수정' WHERE "id" = 1
+  => true 
   # 두번째
   p = Post.get(1)
   p.title = "제목"
@@ -182,7 +184,10 @@ Post.auto_upgrade!
 * D(Destroy)
 
   ```ruby
-  Post.get(1).destroy
+    2.4.0 :007 > Post.get(1).destroy
+     ~ (0.000103) SELECT "id", "title", "created_at" FROM "posts" WHERE "id" = 1 LIMIT 1
+     ~ (0.014962) DELETE FROM "posts" WHERE "id" = 1
+     => true 
   ```
 
 
