@@ -3,7 +3,7 @@ gem 'sinatra'
 gem 'sinatra-reloader'
 gem 'datamapper'
 gem 'json', '~> 1.6'
-gem 'bcrypt'
+gem 'bcrypt's
 
 group :production do
     gem 'pg'
