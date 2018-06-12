@@ -1,5 +1,7 @@
+gem 'json', '~> 1.6'
 require 'sinatra'
 require 'sinatra/reloader'
+require 'bcrypt'
 require './model.rb'
 
 before do 
@@ -63,4 +65,27 @@ get '/posts/update/:id' do
   @id = params[:id]
   Post.get(@id).update(title: params[:title], body: params[:body])
   redirect '/posts/'+@id
+end
+
+get '/users/new' do
+  erb :"users/new"
+end
+
+get '/users/create' do
+  # 비밀번호랑 비밀번호 확인이 다르면
+  if params[:pwd] != params[:pwd_confirm]
+    redirect '/'
+  # 가입을 안시키고
+  else
+  # 같으면 가입을 시킨다.
+    User.create(name: params[:name], 
+      email: params[:email], 
+      password: BCrpyt::password.create(params[:pwd]))
+  end
+  erb :"users/create"
+end
+
+get '/users' do
+  @users = User.all
+  erb :"users/users"
 end
