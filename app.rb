@@ -66,3 +66,22 @@ get '/posts/:id' do
   @post = Post.get(@id)
   erb :'posts/show'
 end
+
+get '/posts/destroy/:id' do
+  Post.get(params[:id]).destroy
+  # erb :'posts/destroy'
+  redirect '/posts'
+end
+
+# 값을 받아서 뿌려주기 위한 용도
+get '/posts/edit/:id' do
+  @id = params[:id]
+  @post = Post.get(@id)
+  erb :'posts/edit'
+end
+
+get '/posts/update/:id' do
+  @id = params[:id]
+  Post.get(@id).update(title: params[:title], body: params[:body])
+  redirect '/posts/'+@id
+end
